@@ -80,9 +80,9 @@ void main() {
   // });
 
   var list = List.generate(10, (index) {
-    return Future.delayed(Duration(seconds: 1), () {
-      return index;
-    });
+    // return Future.delayed(Duration(seconds: 1), () {
+    return index;
+    // });
   });
   Stream.eventTransformed(Stream.fromIterable(list), (eventSink) {
     return MapSink(eventSink);
@@ -95,13 +95,18 @@ void main() {
   });
 }
 
-class MapSink implements EventSink<Future<int>> {
+class MapSink implements EventSink<int> {
   EventSink _outputSink;
 
   MapSink(this._outputSink);
 
+  // @override
+  // void add(Future<int> event) {
+  //   _outputSink.add(event);
+  // }
+
   @override
-  void add(Future<int> event) {
+  void add(int event) {
     _outputSink.add(event);
   }
 
